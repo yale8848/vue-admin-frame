@@ -1,5 +1,6 @@
 <template>
 	<div id="app">
+		<vue-progress-bar></vue-progress-bar>
 		<AdminLogin v-if="!isLogined">
 		</AdminLogin>
 		<AdminFrame v-if="isLogined">
@@ -17,14 +18,14 @@
 
 			}
 		},
-		mounted:function(){
-		this.getData();	
+		mounted: function() {
+			this.getData();
 		},
-		
+
 		methods: {
-			async  getData() {
-				 let data = await this.$http.get("http://gank.io/api/today",{})
-				 console.log(data);
+			async getData() {
+				let data = await this.$http.get(this,"http://gank.io/api/today", {})
+				console.log(data);
 			}
 		},
 		components: {
