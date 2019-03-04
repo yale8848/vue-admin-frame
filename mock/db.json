@@ -1,0 +1,40 @@
+{
+	"login": {
+		"id": 1,
+		"name": "admin",
+		"head": "https://bing.ioliu.cn/v1/rand?w=50&h=50",
+		"token": "888",
+		"menus": [{
+			"icon": "el-icon-location",
+			"name": "干货集中营",
+			"subs": [{
+					"path": "/gank/Android",
+					"name": "Android"
+				},
+				{
+					"path": "/gank/前端",
+					"name": "前端"
+				},
+				{
+					"path": "/gank/iOS",
+					"name": "iOS"
+				},
+				{
+					"path": "/gank/休息视频",
+					"name": "休息视频"
+				},
+				{
+					"path": "/gank/拓展资源",
+					"name": "拓展资源"
+					
+				},
+				{
+					"path": "/gank/福利",
+					"name": "福利"
+				}
+			]
+		}]
+
+
+	}
+}

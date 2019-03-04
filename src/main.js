@@ -11,25 +11,15 @@ import 'element-ui/lib/theme-chalk/index.css'
 import VueProgressBar from 'vue-progressbar'
 import http from './util/http.js'
 
+import VueScroller from 'vue-scroller'
+Vue.use(VueScroller)
+
 Vue.prototype._ = _
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 
-const options = {
-  color: '#bffaf3',
-  failedColor: '#874b4b',
-  thickness: '5px',
-  transition: {
-    speed: '0.2s',
-    opacity: '0.6s',
-    termination: 300
-  },
-  autoRevert: true,
-  location: 'left',
-  inverse: false
-}
 Vue.use(VueProgressBar)
 
 Vue.prototype.$http = http
