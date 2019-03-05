@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve | npm run mock",
-    "build": "vue-cli-service build",
+    "build": "set NODE_ENV=production && vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "mock": "json-server mock/db.json --port 3000 --watch"
   },
