@@ -1,25 +1,23 @@
 <template>
-	<div class="wrapper" :pullup="true">
-		<div class="gank">
+	<div class="gank">
 
-			<div class="item" v-for="item ,index in ganks" :key="index">
+		<a class="item" v-for="item ,index in ganks" :key="index" target="_blank" :href="item.url">
+
+			<div class="img" :style="{backgroundImage:'url('+item.images+')'}">
+			</div>
+
+			<div class="content">
+				<span class="date">{{item.publishedAt.substring(0,item.publishedAt.indexOf('T'))}}</span>
 				<p class="desc">
 					{{item.desc}}
 				</p>
-				<img :src="item.images&&item.images.length>0?item.images[0]:'https://bing.ioliu.cn/v1/rand?w=200&h=200'" />
-				<div class="bottom">
-					<span>{{item.who}}</span>
-					<span>{{item.publishedAt.substring(0,item.publishedAt.indexOf('T'))}}</span>
-				</div>
+				<span class="who">{{item.who}}</span>
 			</div>
-		</div>
+		</a>
 	</div>
 
 </template>
 <script>
-	import BScroll from 'better-scroll'
-
-
 	export default {
 		data() {
 
@@ -28,33 +26,25 @@
 
 			}
 		},
-
-		created() {
-
-
+		beforeRouteUpdate(to, from, next) {
+			//console.log('gank',' to: '+to.path,' from: '+from.path);
+			next();
+			this.ganks = [];
+			this.getData();
+			
 		},
+		created() {},
 		mounted() {
-			this.scroll = new BScroll('.wrapper', {
-				scrollY: true,
-				pullUpLoad: {
-					threshold: 20 // 在上拉到超过底部 20px 时，触发 pullingUp 事件
-				}
-			});
-			this.scroll.on('pullingUp', () => {
-				console.log('up');
-			});
-			this.scroll.on('scrollEnd', () => {
-				console.log('scrollEnd');
-			});
-			this.scroll.on('scroll', (pos) => {
-				console.log('scroll',pos);
-			});
 			this.getData();
 		},
 		methods: {
 
 			async getData() {
-				let data = await this.$http.get("http://gank.io/api/data/Android/20/1");
+				let data = await this.$http.get("http://gank.io/api/data/" + this.$route.params.category + "/20/1");
+				for (let i = 0; i < data.results.length; i++) {
+					data.results[i].images = (data.results[i].images && data.results[i].images.length > 0) ? data.results[i].images[0]:
+						'https://bing.ioliu.cn/v1/rand?w=200&h=200'+'&t='+data.results[i]._id;
+				}
 				this.ganks = data.results;
 
 			}
@@ -63,42 +53,46 @@
 </script>
 
 <style lang="scss">
-	img {
-		width: 250px;
-		height: 200px;
-	}
-
 	.gank {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: space-around;
 
 		.item {
-			width: 250px;
+			width: 80%;
+			max-width: 800px;
+			margin: auto;
 			height: 250px;
-			border: 1px solid #909399;
-			margin-top: 20px;
-			border-radius: 20px;
+			margin-top: 35px;
+			display: flex;
+			flex-direction: row;
+			cursor: pointer;
+			box-shadow: 0 0 5px rgba(0, 0, 0, .1);
 
-			.desc {
-				background-color: #DCDFE6;
-				text-align: center;
-				font-size: 19px;
-				border-radius: 20px 20px 0px 0px;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
+			>.img {
+				width: 280px;
+				height: 100%;
+				flex-shrink: 0;
+				background-size: cover;
 			}
 
-			.bottom {
+			.content {
 				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
+				flex-direction: column;
+				padding: 20px;
+				text-align: left;
 
-				span {
-					margin-left: 10px;
-					margin-right: 10px;
+				.date {
+					font-size: 14px;
+					color: #738a94
+				}
+
+				.desc {
+					margin-top: 40px;
+					margin-bottom: 20px;
+					font-size: 20px;
+					font-weight: 700;
+				}
+
+				.who {
+					margin-top: 20px;
 				}
 			}
 		}
