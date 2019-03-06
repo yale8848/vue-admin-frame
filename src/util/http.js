@@ -1,4 +1,4 @@
-import axios from 'axios'
+//import axios from 'axios'
 import eleAlert from './ele-alert.js'
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';

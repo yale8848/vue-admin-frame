@@ -1,22 +1,24 @@
 <template>
-	<div id="app">
+	<div id="frame">
 		<el-container>
-			<el-menu :default-active="activeMenuIndex" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
-			 @select="menuSelect" :collapse="menuCollapse">
-				<el-submenu v-for="item,index in menus" :index="''+index" :key="index*1000">
-					<template slot="title">
-						<i :class="item.icon"></i>
-						<span>{{ item.name }}</span>
-					</template>
-					<el-menu-item-group>
-						<el-menu-item v-for="item1,index1 in item.subs" :index="index+'-'+index1" :key="index*1000+index1" click="openTab(item1.path,item1.name)">
-							{{ item1.name }}
-						</el-menu-item>
-					</el-menu-item-group>
-				</el-submenu>
+			<div class="el-menu-vertical">
+				<el-menu :default-active="activeMenuIndex" @open="handleOpen" @close="handleClose" @select="menuSelect" :collapse="menuCollapse">
+					<el-submenu v-for="item,index in menus" :index="''+index" :key="index*1000">
+						<template slot="title">
+							<i :class="item.icon"></i>
+							<span>{{ item.name }}</span>
+						</template>
+						<el-menu-item-group>
+							<el-menu-item v-for="item1,index1 in item.subs" :index="index+'-'+index1" :key="index*1000+index1" click="openTab(item1.path,item1.name)">
+								{{ item1.name }}
+							</el-menu-item>
+						</el-menu-item-group>
+					</el-submenu>
 
-			</el-menu>
-			<el-container>
+				</el-menu>
+			</div>
+
+			<el-container class="header-main">
 				<el-header>
 					<i class="el-icon-menu menu" @click="showMenu"></i>
 					<div class='user-info'>
@@ -150,7 +152,7 @@
 						return false;
 					}
 				});
-				if(!find){
+				if (!find) {
 					this.activeMenuIndex = path;
 				}
 
@@ -174,31 +176,25 @@
 	}
 </script>
 <style lang="scss">
-	html,
-	body {
-		margin: 0;
-		padding: 0;
-		width: 100%;
+	#frame {
 		height: 100%;
 	}
 
-	#app>.el-container {
+	#frame>.el-container {
 		height: 100%;
 	}
 
-	#app {
-		font-family: 'Avenir', Helvetica, Arial, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		color: #2c3e50;
-		height: 100%;
+
+
+	.el-menu-vertical {
+		overflow: hidden;
 
 	}
 
 	.el-menu {
-		width: 200px;
 		overflow-y: auto;
 		overflow-x: hidden;
+		height: 100%;
 	}
 
 	.el-header,
