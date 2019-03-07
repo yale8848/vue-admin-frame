@@ -40,7 +40,7 @@
 		methods: {
 
 			async getData() {
-				let data = await this.$http.get("http://gank.io/api/data/" + this.$route.params.category + "/20/1");
+				let data = await this.$http.get("/gank/" + this.$route.params.category + "/20/1");
 				for (let i = 0; i < data.results.length; i++) {
 					data.results[i].images = (data.results[i].images && data.results[i].images.length > 0) ? data.results[i].images[0]:
 						'https://bing.ioliu.cn/v1/rand?w=200&h=200'+'&t='+data.results[i]._id;

@@ -1,6 +1,8 @@
 //import axios from 'axios'
 import eleAlert from './ele-alert.js'
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 
@@ -25,8 +27,11 @@ const http = {
 		});
 
 	},
-
+    getUrl(path){
+		return isProduction?'/web-prod'+path:"http://localhost:8000"+'/web-dev'+path;
+	},
 	get(url, params) {
+		url=this.getUrl(url);
 		return new Promise((res, rej) => {
 			axios.get(url, {
 					params: params
@@ -42,6 +47,7 @@ const http = {
 		});
 	},
 	post(url, params) {
+		url=this.getUrl(url);
 		return new Promise((res, rej) => {
 			axios.post(url, params)
 				.then((resp) => {

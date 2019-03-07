@@ -24,8 +24,7 @@
 				this.getLoginData();
 			},
 			async getLoginData() {
-				let url = this.prod?"https://easy-mock.com/mock/5c7f3b37c7e5293f538ec4a9/vue-admin-frame/login":"http://localhost:3000/login";
-				let data = await this.$http.get(url, {});
+				let data = await this.$http.get("/login", {});
 				console.log(data);
 				this.$store.commit('setUser',data);
 				
