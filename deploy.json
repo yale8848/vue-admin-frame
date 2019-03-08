@@ -1,0 +1,26 @@
+{
+    "prod": [{
+        "urls": ["root:123456@172.16.1.244:22"],
+        "cmds": [{
+                "type": "remote-cmd",
+                "cmd": "mkdir -p /home/server/vue-admin-frame"
+            },
+            {
+                "type": "upload-file",
+                "files": ["dist", "server.js", "mock", "package.json", "start.sh"],
+                "remote": "/home/server/vue-admin-frame"
+            },
+            {
+                "type": "remote-cmd",
+                "cmd": "chmod 777 /home/server/vue-admin-frame/start.sh"
+            },
+            {
+                "type": "remote-cmd",
+                "cmd": "cd  /home/server/vue-admin-frame && ./start.sh"
+            }
+
+        ]
+    }],
+    "dev": [],
+    "test": []
+}
